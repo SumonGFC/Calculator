@@ -25,6 +25,8 @@ p, h1, h2, h3, h4, h5, h6 {
 
 /* STYLES */
 
+/* CONTAINERS: UNIQUE STYLES */
+
 html {
   height: 100%;
   width: 100%;
@@ -33,7 +35,6 @@ html {
 body {
   height: 100%;
   width: 100%;
-  border: 5px solid green;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,23 +42,53 @@ body {
 }
 
 #main-container {
-  border: 1px solid grey;
+  border: 2px solid grey;
+  border-radius: 16px;
   height: 800px;
   width: 800px;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(#000000 40%,  #091222);
 }
 
-#display-container {
-  border-bottom: 1px solid black;
-  padding: 5px;
-  height: 60%;
+#history-container {
+  height: 50%;
 }
 
-#display {
+
+#expr-container {
+  height: 10%;
 }
 
 #controls-container {
   height: 40%;
-  background-color: #121212;
+}
+
+/* CONTAINERS: CLASS STYLES */
+
+.main-box {
+  padding: 16px;
+}
+
+.brdr-rnd {
+  border: 1px solid #DDDDDD;
+  border-radius: 5px;
+}
+
+/* History display */
+
+#history-display {
+  height: 100%;
+}
+
+/* EXPR BOX */
+
+.expr-line {
+  height: 50px;
+}
+
+/* CONTROLS */
+
+#controls {
+  height: 100%;
 }
