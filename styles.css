@@ -6,6 +6,8 @@
 }
 
 body {
+  font-size: 16px;
+  font-family: Symbola, "Times New Roman", serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -33,6 +35,7 @@ html {
 }
 
 body {
+  color: white;
   height: 100%;
   width: 100%;
   display: flex;
@@ -42,8 +45,7 @@ body {
 }
 
 #main-container {
-  border: 2px solid grey;
-  border-radius: 16px;
+  border: 1px solid white;
   height: 800px;
   width: 800px;
   display: flex;
@@ -71,8 +73,7 @@ body {
 }
 
 .brdr-rnd {
-  border: 1px solid #DDDDDD;
-  border-radius: 5px;
+  border: 1px solid grey;
 }
 
 /* History display */
@@ -83,7 +84,15 @@ body {
 
 /* EXPR BOX */
 
+#expr-box {
+  display: flex;
+  align-items: center;
+  padding: 4px 10px;
+}
+
+
 .expr-line {
+  font-size: 22px;
   height: 50px;
 }
 
