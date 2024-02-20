@@ -1,3 +1,17 @@
+/* glowing-neon-transparent:  https://codepen.io/anonymousjoe/pen/eYKvKVw
+ */
+
+
+/* CONTENTS
+ * 0. Reset
+ * 1. Main containers
+ *    1.1 Unique styles
+ *    1.2 Class styles
+ * 2. History Display styles
+ * 3. Expression Box styles
+ * 4. Control Panels styles 
+ */
+
 /* RESET */
 
 * {
@@ -18,6 +32,8 @@ img, picture, video, canvas, svg {
 }
 
 input, button, textarea, select {
+  background-color: inherit;
+  color: inherit;
   font: inherit;
 }
 
@@ -25,9 +41,8 @@ p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
-/* STYLES */
-
-/* CONTAINERS: UNIQUE STYLES */
+/* 1. CONTAINERS */
+/* 1.1 Containers: unique styles */
 
 html {
   height: 100%;
@@ -51,7 +66,6 @@ body {
   width: 800px;
   display: flex;
   flex-direction: column;
-/* #091222*/
   background: linear-gradient(#000000 40%, rgba(0, 200, 255, 0.3));
   box-shadow: 0px 2px 4px rgba(0,255,255,0.5), 
               0px -2px 4px rgba(0,255,255,0.5), 
@@ -72,7 +86,7 @@ body {
   height: 40%;
 }
 
-/* CONTAINERS: CLASS STYLES */
+/* 1.2 Containers: class styles */
 
 .main-box {
   padding: 16px;
@@ -82,38 +96,42 @@ body {
   border: 1px solid grey;
 }
 
-/* History display */
+/* 2. HISTORY DISPLAY STYLES*/
 
 #history-display {
   height: 100%;
+  border: 1px solid #bbb;
 }
 
-/* EXPR BOX */
+/* 3. EXPRESSION BOX STYLES */
 
 #expr-box {
   display: flex;
   align-items: center;
   padding: 4px 10px;
+  border: 1px solid #bbb;
 }
-
 
 .expr-line {
   font-size: 22px;
   height: 50px;
 }
 
-/* CONTROLS */
+/* 4. CONTROL PANEL STYLES */ 
 
+/* 4.1 Control panel containers */
 #controls {
   height: 100%;
   padding: 4px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  border: 1px solid #bbb;
 }
 
 #controls-left {
   height: 100%;
+  width: 33%;
   flex-grow: 3;
   display: flex;
   justify-content: space-around;
@@ -122,25 +140,83 @@ body {
 
 #controls-mid {
   height: 100%;
+  width: 44%;
   flex-grow: 4;
 }
 
 #controls-right {
   height: 100%;
+  width: 22%;
   flex-grow: 2;
 }
 
-/* CONTROL PANELS */
+/* 4.2 Control Panels */
 
 #fn-panel {
   flex-grow: 1;
+  width: 33%;
 }
 
 #sym-panel {
   flex-grow: 1;
+  width: 33%;
 }
 
 #def-panel {
   flex-grow: 1;
+  width: 33%;
 }
 
+/* 4.2.1 - Panel labels */
+
+.panel-label {
+  font-family: sans;
+  height: 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#mid-labels {
+  justify-content: space-evenly;
+}
+
+/*
+#mid-labels button:focus {
+  border: none; 
+}
+*/
+
+/* 4.2.2 - left panel buttons */
+
+#fn-panel button {
+  display: block;
+  height: 25%;
+  width: 100%;
+}
+
+#sym-panel button {
+  height: 25%;
+  width: 100%;
+}
+
+#def-panel button {
+  height: 25%;
+  width: 100%;
+}
+
+/* 4.2.2 - mid panel buttons */
+
+#mid-panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#mid-panel button {
+  height: 25%;
+  width: 25%;
+}
+
+/* 4.2.4 - right panel buttons */
