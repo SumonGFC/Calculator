@@ -45,12 +45,18 @@ body {
 }
 
 #main-container {
-  border: 1px solid white;
+  border: 1px solid #bbb;
+  border-radius: 16px;
   height: 800px;
   width: 800px;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(#000000 40%,  #091222);
+/* #091222*/
+  background: linear-gradient(#000000 40%, rgba(0, 200, 255, 0.3));
+  box-shadow: 0px 2px 4px rgba(0,255,255,0.5), 
+              0px -2px 4px rgba(0,255,255,0.5), 
+              0px 4px 16px rgba(0,255,255,0.5), 
+              0px -4px 16px rgba(0,255,255,0.5);
 }
 
 #history-container {
@@ -100,4 +106,41 @@ body {
 
 #controls {
   height: 100%;
+  padding: 4px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
+
+#controls-left {
+  height: 100%;
+  flex-grow: 3;
+  display: flex;
+  justify-content: space-around;
+  color: white;
+}
+
+#controls-mid {
+  height: 100%;
+  flex-grow: 4;
+}
+
+#controls-right {
+  height: 100%;
+  flex-grow: 2;
+}
+
+/* CONTROL PANELS */
+
+#fn-panel {
+  flex-grow: 1;
+}
+
+#sym-panel {
+  flex-grow: 1;
+}
+
+#def-panel {
+  flex-grow: 1;
+}
+
