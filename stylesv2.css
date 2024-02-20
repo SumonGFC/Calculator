@@ -4,9 +4,10 @@
 /* CONTENTS
  * 0. Reset
  * 1. Main containers
- * 2. History Display styles
- * 3. Expression Box styles
- * 4. Control Panels styles 
+ * 2. Display Containers
+ * 3. History Display
+ * 4. Expression Box Display
+ * 5. Controls Panel Display
  */
 
 /* RESET */
@@ -60,7 +61,6 @@ main {
   width: 800px;
   border: 1px solid #bbb;
   border-radius: 16px;
-  padding: 16px;
   background: linear-gradient(#000000 40%, rgba(0, 200, 255, 0.3));
   box-shadow: 0px 2px 4px rgba(0,255,255,0.5), 
               0px -2px 4px rgba(0,255,255,0.5), 
@@ -84,13 +84,26 @@ main {
 
 .main-container {
   padding: 16px;
-  border: 1px solid #bbb;
 }
 
 /* DISPLAY CONTAINERS */
 
-#history-display {}
+.main-display {
+  height: 100%;
+  border: 1px solid #bbb;
+}
 
-#expr-display {}
+/* HISTORY DISPLAY */
 
-#controls-display {}
+
+
+/* EXPRESSION BOX DISPLAY */
+
+#expr-display {
+  display: flex;
+  align-items: center;
+  padding: 4px 10px;
+  font-size: 22px;
+}
+
+/* CONTROLS PANEL DISPLAY */
