@@ -1,0 +1,96 @@
+/* glowing-neon-transparent:  https://codepen.io/anonymousjoe/pen/eYKvKVw
+ */
+
+/* CONTENTS
+ * 0. Reset
+ * 1. Main containers
+ * 2. History Display styles
+ * 3. Expression Box styles
+ * 4. Control Panels styles 
+ */
+
+/* RESET */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-size: 16px;
+  font-family: Symbola, "Times New Roman", serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  background-color: inherit;
+  color: inherit;
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 1. MAIN CONTAINERS */
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  color: white;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+}
+
+main {
+  height: 800px;
+  width: 800px;
+  border: 1px solid #bbb;
+  border-radius: 16px;
+  padding: 16px;
+  background: linear-gradient(#000000 40%, rgba(0, 200, 255, 0.3));
+  box-shadow: 0px 2px 4px rgba(0,255,255,0.5), 
+              0px -2px 4px rgba(0,255,255,0.5), 
+              0px 4px 16px rgba(0,255,255,0.5), 
+              0px -4px 16px rgba(0,255,255,0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+#history-container {
+  height: 50%;
+}
+
+#expr-container {
+  height: 10%;
+}
+
+#controls-container {
+  height: 40%;
+}
+
+.main-container {
+  padding: 16px;
+  border: 1px solid #bbb;
+}
+
+/* DISPLAY CONTAINERS */
+
+#history-display {}
+
+#expr-display {}
+
+#controls-display {}
