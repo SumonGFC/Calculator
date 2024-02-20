@@ -1,0 +1,7 @@
+//Specification of the grammar of the types of mathematical expression we wish to parse
+
+Terminals = {ids, digits, ., (, ), +, -, *, /, ^, pi, e, phi (golden ratio)}
+	--> ids = {log, sin, cos, tan, mean} U {some english letters, some greek letters} // letters TBD
+Non-terminals = {factor, term, expr, pow}
+Productions = {}
+Start = {factor}
