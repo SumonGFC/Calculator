@@ -8,9 +8,12 @@
  * 3. History Display
  * 4. Expression Box Display
  * 5. Controls Panel Display
+ *    5.1 - Labels
+ *    5.2 - Keypad Panels
+ *    5.3 - Panel Buttons
  */
 
-/* RESET */
+/* 0. RESET */
 
 * {
   box-sizing: border-box;
@@ -109,9 +112,6 @@ main {
 
 /* 5. CONTROL PANEL DISPLAY */
 
-#controls-display {
-}
-
 /* 5.1 - Labels */
 
 #panel-labels {
@@ -131,20 +131,29 @@ main {
 
 #functions {
   flex-grow: 1.5;
+  width: 16.7%;
   height: 100%;
   margin: 0 10px 0 0;
   border: 1px solid white;
+  text-align: center;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 #constants {
   flex-grow: 1.5;
+  width: 16.7%;
   height: 100%;
   margin: 0 10px;
   border: 1px solid white;
+  text-align: center;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 #keypad {
   flex-grow: 4;
+  width: 44%;
   height: 100%;
   margin: 0 10px;
   border: 1px solid white;
@@ -152,7 +161,22 @@ main {
 
 #utilities {
   flex-grow: 2;
+  width: 22%;
   height: 100%;
   margin: 0 0 0 10px;
   border: 1px solid white;
+}
+
+/* 5.3 - Panel Buttons */
+
+#functions button {
+  height: 25%;
+  width: 80%;
+  margin: 5px;
+}
+
+#constants button {
+  height: 25%;
+  width: 80%;
+  margin: 5px;
 }
