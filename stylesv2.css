@@ -157,6 +157,10 @@ main {
   height: 100%;
   margin: 0 10px;
   border: 1px solid white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 5px;
 }
 
 #utilities {
@@ -179,4 +183,9 @@ main {
   height: 25%;
   width: 80%;
   margin: 5px;
+}
+
+#keypad button {
+  height: 56px;
+  width: 74px;
 }
