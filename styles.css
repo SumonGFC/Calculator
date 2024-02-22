@@ -1,18 +1,19 @@
 /* glowing-neon-transparent:  https://codepen.io/anonymousjoe/pen/eYKvKVw
  */
 
-
 /* CONTENTS
  * 0. Reset
  * 1. Main containers
- *    1.1 Unique styles
- *    1.2 Class styles
- * 2. History Display styles
- * 3. Expression Box styles
- * 4. Control Panels styles 
+ * 2. Display Containers
+ * 3. History Display
+ * 4. Expression Box Display
+ * 5. Controls Panel Display
+ *    5.1 - Labels
+ *    5.2 - Keypad Panels
+ *    5.3 - Panel Buttons
  */
 
-/* RESET */
+/* 0. RESET */
 
 * {
   box-sizing: border-box;
@@ -20,8 +21,6 @@
 }
 
 body {
-  font-size: 16px;
-  font-family: Symbola, "Times New Roman", serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -41,8 +40,7 @@ p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
-/* 1. CONTAINERS */
-/* 1.1 Containers: unique styles */
+/* 1. MAIN CONTAINERS */
 
 html {
   height: 100%;
@@ -50,6 +48,8 @@ html {
 }
 
 body {
+  font-size: 16px;
+  font-family: Symbola, "Times New Roman", serif;
   color: white;
   height: 100%;
   width: 100%;
@@ -59,24 +59,23 @@ body {
   background-color: #000000;
 }
 
-#main-container {
-  border: 1px solid #bbb;
-  border-radius: 16px;
+main {
   height: 800px;
   width: 800px;
-  display: flex;
-  flex-direction: column;
+  border: 1px solid #bbb;
+  border-radius: 16px;
   background: linear-gradient(#000000 40%, rgba(0, 200, 255, 0.3));
   box-shadow: 0px 2px 4px rgba(0,255,255,0.5), 
               0px -2px 4px rgba(0,255,255,0.5), 
               0px 4px 16px rgba(0,255,255,0.5), 
               0px -4px 16px rgba(0,255,255,0.5);
+  display: flex;
+  flex-direction: column;
 }
 
 #history-container {
   height: 50%;
 }
-
 
 #expr-container {
   height: 10%;
@@ -86,137 +85,100 @@ body {
   height: 40%;
 }
 
-/* 1.2 Containers: class styles */
-
-.main-box {
+.main-container {
   padding: 16px;
 }
 
-.brdr-rnd {
-  border: 1px solid grey;
-}
+/* 2. DISPLAY CONTAINERS */
 
-/* 2. HISTORY DISPLAY STYLES*/
-
-#history-display {
+.main-display {
   height: 100%;
   border: 1px solid #bbb;
 }
 
-/* 3. EXPRESSION BOX STYLES */
+/* 3. HISTORY DISPLAY */
 
-#expr-box {
+
+
+/* 4. EXPRESSION BOX DISPLAY */
+
+#expr-display {
   display: flex;
   align-items: center;
   padding: 4px 10px;
-  border: 1px solid #bbb;
-}
-
-.expr-line {
   font-size: 22px;
-  height: 50px;
 }
 
-/* 4. CONTROL PANEL STYLES */ 
+/* 5. CONTROL PANEL DISPLAY */
 
-/* 4.1 Control panel containers */
-#controls {
+#controls-display {
   height: 100%;
-  padding: 4px;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
   border: 1px solid #bbb;
 }
 
-#controls-left {
-  height: 100%;
-  width: 33%;
-  flex-grow: 3;
+/* 5.1 - Labels */
+
+#panel-labels {
   display: flex;
-  justify-content: space-around;
-  color: white;
+  height: 10%;
 }
 
-#controls-mid {
-  height: 100%;
-  width: 44%;
-  flex-grow: 4;
-}
+/* 5.2 - Keypad Panels */
 
-#controls-right {
-  height: 100%;
-  width: 22%;
-  flex-grow: 2;
-}
-
-/* 4.2 Control Panels */
-
-#fn-panel {
-  flex-grow: 1;
-  width: 33%;
-}
-
-#sym-panel {
-  flex-grow: 1;
-  width: 33%;
-}
-
-#def-panel {
-  flex-grow: 1;
-  width: 33%;
-}
-
-/* 4.2.1 - Panel labels */
-
-.panel-label {
-  font-family: sans;
-  height: 32px;
+#keypad-panels {
+  height: 90%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
 }
 
-#mid-labels {
-  justify-content: space-evenly;
-}
-
-/*
-#mid-labels button:focus {
-  border: none; 
-}
-*/
-
-/* 4.2.2 - left panel buttons */
-
-#fn-panel button {
-  display: block;
-  height: 25%;
-  width: 100%;
-}
-
-#sym-panel button {
-  height: 25%;
-  width: 100%;
-}
-
-#def-panel button {
-  height: 25%;
-  width: 100%;
-}
-
-/* 4.2.2 - mid panel buttons */
-
-#mid-panel {
+#functions {
+  width: 33%;
+  height: 100%;
+  margin: 0 10px 0 0;
+  text-align: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 5px;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
-#mid-panel button {
-  height: 25%;
-  width: 25%;
+#keypad {
+  width: 44%;
+  height: 100%;
+  margin: 0 10px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 5px;
 }
 
-/* 4.2.4 - right panel buttons */
+#utilities {
+  width: 22%;
+  height: 100%;
+  margin: 0 0 0 10px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+/* 5.3 - Panel Buttons */
+
+#functions button {
+  height: 56px;
+  width: 74px;
+}
+
+#keypad button {
+  height: 56px;
+  width: 74px;
+}
+#utilities button {
+  height: 56px;
+  width: 74px;
+}
