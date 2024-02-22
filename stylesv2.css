@@ -50,7 +50,6 @@ html {
 body {
   font-size: 16px;
   font-family: Symbola, "Times New Roman", serif;
-  font-weight: 300;
   color: white;
   height: 100%;
   width: 100%;
@@ -112,6 +111,11 @@ main {
 
 /* 5. CONTROL PANEL DISPLAY */
 
+#controls-display {
+  height: 100%;
+  border: 1px solid #bbb;
+}
+
 /* 5.1 - Labels */
 
 #panel-labels {
@@ -156,6 +160,11 @@ main {
   width: 22%;
   height: 100%;
   margin: 0 0 0 10px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 5px;
 }
 
 /* 5.3 - Panel Buttons */
@@ -166,6 +175,10 @@ main {
 }
 
 #keypad button {
+  height: 56px;
+  width: 74px;
+}
+#utilities button {
   height: 56px;
   width: 74px;
 }
