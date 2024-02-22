@@ -116,47 +116,36 @@ main {
 
 #panel-labels {
   display: flex;
-  border: 1px solid red;
-  height: 15%;
+  height: 10%;
 }
 
 /* 5.2 - Keypad Panels */
 
 #keypad-panels {
-  height: 85%;
+  height: 90%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
 #functions {
-  flex-grow: 1.5;
-  width: 16.7%;
+  width: 33%;
   height: 100%;
   margin: 0 10px 0 0;
-  border: 1px solid white;
   text-align: center;
-  overflow-y: auto;
-  scrollbar-width: thin;
-}
-
-#constants {
-  flex-grow: 1.5;
-  width: 16.7%;
-  height: 100%;
-  margin: 0 10px;
-  border: 1px solid white;
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 5px;
   overflow-y: auto;
   scrollbar-width: thin;
 }
 
 #keypad {
-  flex-grow: 4;
   width: 44%;
   height: 100%;
   margin: 0 10px;
-  border: 1px solid white;
+  text-align: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -164,25 +153,16 @@ main {
 }
 
 #utilities {
-  flex-grow: 2;
   width: 22%;
   height: 100%;
   margin: 0 0 0 10px;
-  border: 1px solid white;
 }
 
 /* 5.3 - Panel Buttons */
 
 #functions button {
-  height: 25%;
-  width: 80%;
-  margin: 5px;
-}
-
-#constants button {
-  height: 25%;
-  width: 80%;
-  margin: 5px;
+  height: 56px;
+  width: 74px;
 }
 
 #keypad button {
