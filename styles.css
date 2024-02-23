@@ -120,7 +120,28 @@ main {
 
 #panel-labels {
   display: flex;
+  justify-content: space-between;
   height: 10%;
+  font-size: 14px;
+}
+
+#left-labels {
+  width: 33%;
+  margin-left: 10px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+#mid-labels {
+  padding-left: 10px;
+  width: 44%;
+  display: flex;
+  gap: 20px;
+}
+
+#right-labels {
+  width: 22%;
 }
 
 /* 5.2 - Keypad Panels */
@@ -128,7 +149,6 @@ main {
 #keypad-panels {
   height: 90%;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
 }
 
