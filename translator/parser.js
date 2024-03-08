@@ -22,17 +22,19 @@ class Parser {
     #EOF = "EOF";
 
     #next() {
-        //return next token
+        //return next token type
         if (this.tokens[#cursor].type === "EOF") {
             #cursor = 0;
             return #EOF;
         }
-        return this.tokens[#cursor];
+        return this.tokens[#cursor].type;
     }
 
     #consumeToken(inputToken, tokenType) {
         //read token; verify token is correct type
-        if (inputToken.type === tokenType) 
+        if (inputToken.type === tokenType) {
+            ++this.#cursor;
+        }
     }
     
     #error() {
