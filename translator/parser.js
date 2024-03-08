@@ -1,6 +1,6 @@
 const { Lexer } = require("./lexer.js");
 
-const tokenTypes = {
+const _tokenTypes = {
     plus: "PLUS",
     minus: "MINUS",
     divide: "DIVIDE",
@@ -19,14 +19,20 @@ class Parser {
     }
 
     #cursor = 0;
+    #EOF = "EOF";
 
     #next() {
         //return next token
-        
+        if (this.tokens[#cursor].type === "EOF") {
+            #cursor = 0;
+            return #EOF;
+        }
+        return this.tokens[#cursor];
     }
 
     #consumeToken(inputToken, tokenType) {
         //read token; verify token is correct type
+        if (inputToken.type === tokenType) 
     }
     
     #error() {
