@@ -1,17 +1,5 @@
 const { Lexer } = require("./lexer.js");
 
-const _tokenTypes = {
-    plus: "PLUS",
-    minus: "MINUS",
-    divide: "DIVIDE",
-    multiply: "MULTIPLY",
-    exponent: "EXPONENT",
-    lParen: "LPAREN",
-    rParen: "RPAREN",
-    number: "NUMBER",
-    eof: "EOF"
-}
-
 class Parser {
     constructor() {
         this.tokens = [];
