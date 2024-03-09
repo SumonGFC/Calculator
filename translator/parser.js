@@ -7,7 +7,9 @@ class Parser {
         this.sentinel = "$";
     }
     
-    // Helpers
+    // PRIVATE FIELDS
+
+    // Convert raw tokens into objects
     #mkTokenObj(_tokens) {
         let tokenStream = []
         for (let i = 0; i < _tokens.length; ++i) {
@@ -42,6 +44,8 @@ class Parser {
         }
         return tokenStream;
     }
+    
+    // Helpers
 
     #nextToken() { return this.tokens[this.cursor]; }
 
@@ -54,7 +58,25 @@ class Parser {
             throw new Error("Error: Unexpected Token");
         }
     }
-    
+
+    #head(stack) {
+        return stack[stack.length-1];
+    }
+
+    #precedence(op) {
+        if (op === "^") { return 3; }
+        else if (op === "*" || op === "/") { return 2; }
+        else if (op === "u") { return 1; }
+        else if (op === "+" || op === "-") { return 0; }
+        else { throw new Error(`pushOperator() passed illegal value: ${op}` }
+    }
+
+    #mkLeaf() {}
+
+    #mkNode() {}
+
+
+
     // Implement Productions
     #E(operators, operands) {
         this.#P(operators, operands);
@@ -70,9 +92,28 @@ class Parser {
         }
     }
 
-    // Methods
+    #popOperator(operators, operands) {
+        // Make node (by popping stacks) and push onto operands
+        if (this.#head(operators).type === "BINOP") {
+            operands.push(
+                this.#mkNode(operators.pop(), operands.pop(), operands.pop())
+            );
+        } else {
+            operands.push(this.#mkNode(operators.pop(), operands.pop()));
+        }
+    }
+
+    #pushOperator(op, operators, operands) {
+        // call popOperator while the current operator token has lower 
+        // precedence than head(operator-stack)
+        while (this.#precedence(this.#head(operators).value) > this.#precedence(op.value)) {
+            this.#popOperator(operators, operands);
+        }
+        operators.push(op);
+    }
+    // PUBLIC METHODS
     stream(_tokens) {
-        this.tokens = _tokens;
+        this.tokens = this.#mkTokenObj(_tokens);
         this.cursor = 0;
     }
 
