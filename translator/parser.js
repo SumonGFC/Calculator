@@ -43,7 +43,7 @@ class Parser {
                     if (_tokens[i-1] === ")" || !isNaN(_tokens[i-1])) {
                         tokenStream.push({type: "BINOP", value: _tokens[i]})
                     } else {
-                        tokenStream.push({type: "UNOP", value: _tokens[i]})
+                        tokenStream.push({type: "UNOP", value: "u"})
                     }
                     break;
                 case _tokens[i] === "EOF":
