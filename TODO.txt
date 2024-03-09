@@ -1,0 +1,7 @@
+NECESSARY:
+[] - Implement Parsing Algorithm
+[] - Implement Evaluator: AST traversal
+[] - Correct unbalancedParens() in Lexer
+
+Bonus Points:
+

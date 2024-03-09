@@ -18,6 +18,7 @@ class Lexer {
     #shorthandMultiply = /((\d+|\d*.\d+)\(|\)(\d+|\d*.\d+)|\)\()/; // e.g. 1( or )1 or )(
 
     #unbalancedParens(expr) {
+        // This algorithm is extremely naive and easily fooled.
         let lParens = 0;
         let rParens = 0;
         for (let i = 0; i < expr.length; ++i) {
