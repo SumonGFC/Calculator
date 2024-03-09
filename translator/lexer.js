@@ -14,9 +14,9 @@ class Lexer {
     // ERROR REPORTING
 
     // match correct number representation (for reference)
-    //#regexNum = /(\d+|\d*.\d+)/;  
+    //#regexNum = /(\d+|\d*.\d+)/;
     // match invalid consecutive operators
-    #consecutiveOps = /[+*/^-][+*/^][+*/^-]*/;  
+    #consecutiveOps = /[+*/^-][+*/^][+*/^-]*/;
     // match operator "inside" parenthsis e.g. "(+" or "^)"
     #opInParen = /(\([+*/^]|[+*/^-]\))/;  
     // match shorthand multiplication e.g. 1( or )1 or )(
@@ -91,37 +91,36 @@ class Lexer {
         while (this.#cursor < this.#expr.length) {
             switch(true) {
                 case this.#at() === "+":
-                    _tokens.push({type: "OPERATOR", value: "+"});
+                    _tokens.push("+");
                     break;
                 case this.#at() === "-":
-                    _tokens.push({type: "OPERATOR", value: "-"});
+                    _tokens.push("-");
                     break;
                 case this.#at() === "/":
-                    _tokens.push({type: "OPERATOR", value: "/"});
+                    _tokens.push("/");
                     break;
                 case this.#at() === "*":
-                    _tokens.push({type: "OPERATOR", value: "*"});
+                    _tokens.push("*");
                     break;
                 case this.#at() === "^":
-                    _tokens.push({type: "OPERATOR", value: "^"});
+                    _tokens.push("^");
                     break;
                 case this.#at() === "(":
-                    _tokens.push({type: "PUNC", value: "("});
+                    _tokens.push("(");
                     break;
                 case this.#at() === ")":
-                    _tokens.push({type: "PUNC", value: ")"});
+                    _tokens.push(")");
                     break;
                 case !isNaN(this.#at()) || this.#at() === ".":
                     do {
                         numBuilder += this.#at();
                         ++this.#cursor;
                     } while (!isNaN(this.#at()) || this.#at() === ".");
-
                     // INVALID NUMBER REPRESENTATIONS HANDLED HERE
                     if (!(this.#matchNumber(numBuilder))) {
-                        return `Syntax Error: Invalid Number Representation ${numBuilder}`;
+                        return `SyntaxError: Invalid Number Representation ${numBuilder}`;
                     } else {
-                        _tokens.push({type: "NUMBER", value: parseFloat(numBuilder)});
+                        _tokens.push(parseFloat(numBuilder));
                         numBuilder = "";
                         this.#cursor--;
                     }
@@ -131,25 +130,25 @@ class Lexer {
             }
             this.#cursor++;
         }
-        _tokens.push({type: "EOF", value: "EOF"})
+        _tokens.push("EOF");
         return _tokens;
     }
 }
 
 
-const test = new Lexer;
-const validString = "1 + 2 - 3 * (4/5^6)";
-const consOp = "1 +/ 2";
-const unP = "1 + (2*3";
-const shortM = "1(2)";
-const missingOP = "1+(*3)";
-const invalidTok = "1+2#3";
+// const test = new Lexer;
+// const validString = "-----1.10001 + 0000.20 - --3 * (4/5^6)";
+// const consOp = "1 +/ 2";
+// const unP = "1 + (2*3";
+// const shortM = "1(2)";
+// const missingOP = "1+(*3)";
+// const invalidTok = "1+2#3";
 
-console.log(test.tokenize(validString));
-console.log(test.tokenize(consOp));
-console.log(test.tokenize(unP));
-console.log(test.tokenize(shortM));
-console.log(test.tokenize(missingOP));
-console.log(test.tokenize(invalidTok));
+// console.log(test.tokenize(validString));
+// console.log(test.tokenize(consOp));
+// console.log(test.tokenize(unP));
+// console.log(test.tokenize(shortM));
+// console.log(test.tokenize(missingOP));
+// console.log(test.tokenize(invalidTok));
 
 module.exports = { Lexer };
