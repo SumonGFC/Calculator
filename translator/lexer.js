@@ -2,7 +2,7 @@
  * Currently, this lexer only recognizes the symbols in the set:
  * [ 0123456789.+-/*^() ]
  *
- * NOTE: I decided to handle errors in the lexer.
+ * NOTE: I decided to handle errors in the lexer instead of the parser.
  * Because the expressions I will allow the user to generate are relatively 
  * simple (unless I decide to add more features), I thought it better to be
  * lazy for the sake of expediency.
@@ -12,37 +12,52 @@ class Lexer {
     constructor() {}
     
     // ERROR REPORTING
-    //#regexNum = /(\d+|\d*.\d+)/;  //matches correct number representation
-    #consecutiveOps = /[+\*/^-][+\*/^][+\*/^-]*/;  //matches invalid consecutive operators-- CONSECUTIVE MINUS SIGNS ALLOWED
-    #opInParen = /(\([+\*/^]|[+\*/^-]\))/;  //matches error: operator "inside" parenthsis e.g. "(+" or "^)"
-    #shorthandMultiply = /((\d+|\d*.\d+)\(|\)(\d+|\d*.\d+)|\)\()/; // e.g. 1( or )1 or )(
 
+    // match correct number representation (for reference)
+    //#regexNum = /(\d+|\d*.\d+)/;  
+    // match invalid consecutive operators
+    #consecutiveOps = /[+\*/^-][+\*/^][+\*/^-]*/;  
+    // match operator "inside" parenthsis e.g. "(+" or "^)"
+    #opInParen = /(\([+\*/^]|[+\*/^-]\))/;  
+    // match shorthand multiplication e.g. 1( or )1 or )(
+    #shorthandMultiply = /((\d+|\d*.\d+)\(|\)(\d+|\d*.\d+)|\)\()/; 
+    // match empty parentheses
+    #emptyParens = /\(\)/;
+    // determine unbalanced parentheses
     #unbalancedParens(expr) {
-        // This algorithm is extremely naive and easily fooled.
-        let lParens = 0;
-        let rParens = 0;
+        let stack = [];
         for (let i = 0; i < expr.length; ++i) {
-            if (expr[i] === "(") { ++lParens; }
-            if (expr[i] === ")") { ++rParens; }
+            if (expr[i] === "(" || expr[i] === ")") {
+                stack.push(expr[i]);
+                if (stack[stack.length - 1] === ")") {
+                    if (stack[stack.length - 2] === "(") {
+                        stack.pop();
+                        stack.pop();
+                    }
+                }
+            }
         }
-        return lParens !== rParens;
+        console.log(stack);
+        return stack.length !== 0;
     }
 
     #reportError(expr) {
         if (this.#consecutiveOps.test(expr)) {
-            return "Syntax Error: Consecutive Operators. Maybe you forgot some numbers?";
+            return "SyntaxError: Consecutive Operators. Maybe you forgot some numbers?";
         } else if (this.#opInParen.test(expr)) {
-            return "Syntax Error: Missing Operand in Parentheses. Maybe you forgot some numbers?";
+            return "SyntaxError: Missing Operand in Parentheses. Maybe you forgot some numbers?";
         } else if (this.#shorthandMultiply.test(expr)) {
-            return "Syntax Error: Programmer Skill Issue. Need operator between parentheses or between number and parenthesis. Shorthand multiplication unsupported."
+            return "SyntaxError: Programmer Skill Issue. Need operator between parentheses or between number and parenthesis. Shorthand multiplication unsupported."
         } else if (this.#unbalancedParens(expr)) {
-            return "Syntax Error: Unbalanced Parentheses."
+            return "SyntaxError: Unbalanced Parentheses."
+        } else if (this.#emptyParens.test(expr)) {
+            return "SyntaxError: Empty Parentheses.";
         } else {
             return false;
         }
     }
 
-    // HELPER FUNCTIONS
+    // HELPER FUNCTIONS & CLASS FIELDS
     #expr = "";
     #cursor = 0;
     
@@ -50,7 +65,6 @@ class Lexer {
 
     #matchNumber(str) {
         // I did this before I decided to handle errors in the lexer. 
-        // Once again, laziness trumps responsible design.
         const regexInt = /^\d+$/; 
         const regexFloat = /^\d*.\d+$/;
         return regexInt.test(str) || regexFloat.test(str);
@@ -70,33 +84,33 @@ class Lexer {
         while (this.#cursor < this.#expr.length) {
             switch(true) {
                 case this.#at() === "+":
-                    _tokens.push({type: "OPERATOR", value: "PLUS"});
+                    _tokens.push({type: "OPERATOR", value: "+"});
                     break;
                 case this.#at() === "-":
-                    _tokens.push({type: "OPERATOR", value: "MINUS"});
+                    _tokens.push({type: "OPERATOR", value: "-"});
                     break;
                 case this.#at() === "/":
-                    _tokens.push({type: "OPERATOR", value: "DIVIDE"});
+                    _tokens.push({type: "OPERATOR", value: "/"});
                     break;
                 case this.#at() === "*":
-                    _tokens.push({type: "OPERATOR", value: "MULTIPLY"});
+                    _tokens.push({type: "OPERATOR", value: "*"});
                     break;
                 case this.#at() === "^":
-                    _tokens.push({type: "OPERATOR", value: "EXPONENT"});
+                    _tokens.push({type: "OPERATOR", value: "^"});
                     break;
                 case this.#at() === "(":
-                    _tokens.push({type: "PUNC", value: "LPAREN"});
+                    _tokens.push({type: "PUNC", value: "("});
                     break;
                 case this.#at() === ")":
-                    _tokens.push({type: "PUNC", value: "RPAREN"});
+                    _tokens.push({type: "PUNC", value: ")"});
                     break;
                 case !isNaN(this.#at()) || this.#at() === ".":
-                    // INVALID NUMBER REPRESENTATIONS HANDLED HERE
                     do {
                         numBuilder += this.#at();
                         ++this.#cursor;
                     } while (!isNaN(this.#at()) || this.#at() === ".");
 
+                    // INVALID NUMBER REPRESENTATIONS HANDLED HERE
                     if (!(this.#matchNumber(numBuilder))) {
                         return `Syntax Error: Invalid Number Representation ${numBuilder}`;
                     } else {
@@ -106,7 +120,7 @@ class Lexer {
                     }
                     break;
                 default:
-                    return `Encountered invalid token "${this.#at()}" at index ${this.#cursor}.`
+                    return `SyntaxError: Encountered invalid token "${this.#at()}" at index ${this.#cursor}.`
             }
             this.#cursor++;
         }
