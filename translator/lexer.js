@@ -13,7 +13,7 @@ class Lexer {
     
     // ERROR REPORTING
     //#regexNum = /(\d+|\d*.\d+)/;  //matches correct number representation
-    #consecutiveOps = /[+\*/^-][+\*/^][+\*/^-]*/;  //matches error: consecutive operators
+    #consecutiveOps = /[+\*/^-][+\*/^][+\*/^-]*/;  //matches invalid consecutive operators-- CONSECUTIVE MINUS SIGNS ALLOWED
     #opInParen = /(\([+\*/^]|[+\*/^-]\))/;  //matches error: operator "inside" parenthsis e.g. "(+" or "^)"
     #shorthandMultiply = /((\d+|\d*.\d+)\(|\)(\d+|\d*.\d+)|\)\()/; // e.g. 1( or )1 or )(
 
