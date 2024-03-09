@@ -13,40 +13,87 @@ const _tokenTypes = {
 }
 
 class Parser {
-
     constructor() {
         this.tokens = [];
+        this.cursor = 0;
+        this.sentinel = "$";
     }
-
-    #cursor = 0;
-    #EOF = "EOF";
-
-    #next() {
-        //return next token type
-        if (this.tokens[#cursor].type === "EOF") {
-            #cursor = 0;
-            return #EOF;
+    
+    // Helpers
+    #mkTokenObj(_tokens) {
+        let tokenStream = []
+        for (let i = 0; i < _tokens.length; ++i) {
+            switch(true) {
+                case _tokens[i] === "+":
+                case _tokens[i] === "*":
+                case _tokens[i] === "/":
+                case _tokens[i] === "^":
+                    tokenStream.push({ type: "BINOP", value: _tokens[i] });
+                    break;
+                case _tokens[i] === "(":
+                    tokenStream.push({ type: "LPAREN", value: _tokens[i] });
+                    break;
+                case _tokens[i] === ")":
+                    tokenStream.push({ type: "RPAREN", value: _tokens[i] });
+                    break;
+                case !isNaN(_tokens[i]):
+                    tokenStream.push({ type: "NUMBER", value: _tokens[i] });
+                    break;
+                case _tokens[i] === "-":
+                    if (_tokens[i-1] === ")" || !isNaN(_tokens[i-1])) {
+                        tokenStream.push({type: "BINOP", value: _tokens[i]})
+                    } else {
+                        tokenStream.push({type: "UNOP", value: _tokens[i]})
+                    }
+                    break;
+                case _tokens[i] === "EOF":
+                    tokenStream.push({type: "EOF", value: "EOF"});
+                default:
+                    throw new Error("Error: Invalid Token")
+            }
         }
-        return this.tokens[#cursor].type;
+        return tokenStream;
     }
 
-    #consumeToken(inputToken, tokenType) {
-        //read token; verify token is correct type
-        if (inputToken.type === tokenType) {
-            ++this.#cursor;
+    #nextToken() { return this.tokens[this.cursor]; }
+
+    #consume() { ++this.cursor }
+
+    #expect(_token) {
+        if (this.#nextToken().type === _token.type) {
+            this.#consume();
+        } else {
+            throw new Error("Error: Unexpected Token");
         }
     }
     
-    #error() {
-        //stop parsing and reports error
+    // Implement Productions
+    #E(operators, operands) {
+        this.#P(operators, operands);
+
+        while (this.#nextToken().type === "BINOP") {
+            this.#pushOperator(this.#binary(this.#nextToken()), operators, operands);
+            this.#consume();
+            this.#P(operators, operands);
+        }
+
+        while (this.#head(operators) !== this.sentinel) {
+            popOperator(operators, operands);
+        }
     }
 
+    // Methods
     stream(_tokens) {
         this.tokens = _tokens;
+        this.cursor = 0;
     }
 
-    exprRecognizer() {
-        //This function scans the stream of tokens
+    parse() {
+        let operators = [];
+        let operands = [];
+        operators.push(this.sentinel);
+        this.#E(operators, operands);
+        this.#expect("EOF");
     }
 }
 
@@ -59,5 +106,5 @@ const testTokens = test.tokenize(testString);
 // test for syntax errors:
 const testParser = new Parser;
 testParser.stream(testTokens);
-testParser.exprRecognizer();
+testParser.parse();
 // make AST:
