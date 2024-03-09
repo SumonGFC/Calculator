@@ -16,9 +16,9 @@ class Lexer {
     // match correct number representation (for reference)
     //#regexNum = /(\d+|\d*.\d+)/;  
     // match invalid consecutive operators
-    #consecutiveOps = /[+\*/^-][+\*/^][+\*/^-]*/;  
+    #consecutiveOps = /[+*/^-][+*/^][+*/^-]*/;  
     // match operator "inside" parenthsis e.g. "(+" or "^)"
-    #opInParen = /(\([+\*/^]|[+\*/^-]\))/;  
+    #opInParen = /(\([+*/^]|[+*/^-]\))/;  
     // match shorthand multiplication e.g. 1( or )1 or )(
     #shorthandMultiply = /((\d+|\d*.\d+)\(|\)(\d+|\d*.\d+)|\)\()/; 
     // match empty parentheses
@@ -37,24 +37,31 @@ class Lexer {
                 }
             }
         }
-        console.log(stack);
         return stack.length !== 0;
     }
 
     #reportError(expr) {
         if (this.#consecutiveOps.test(expr)) {
             return "SyntaxError: Consecutive Operators. Maybe you forgot some numbers?";
-        } else if (this.#opInParen.test(expr)) {
-            return "SyntaxError: Missing Operand in Parentheses. Maybe you forgot some numbers?";
-        } else if (this.#shorthandMultiply.test(expr)) {
-            return "SyntaxError: Programmer Skill Issue. Need operator between parentheses or between number and parenthesis. Shorthand multiplication unsupported."
-        } else if (this.#unbalancedParens(expr)) {
-            return "SyntaxError: Unbalanced Parentheses."
-        } else if (this.#emptyParens.test(expr)) {
-            return "SyntaxError: Empty Parentheses.";
-        } else {
-            return false;
         }
+
+        if (this.#opInParen.test(expr)) {
+            return "SyntaxError: Missing Operand in Parentheses. Maybe you forgot some numbers?";
+        }
+
+        if (this.#shorthandMultiply.test(expr)) {
+            return "SyntaxError: Programmer Skill Issue. Need operator between parentheses or between number and parenthesis. Shorthand multiplication unsupported."
+        }
+
+        if (this.#unbalancedParens(expr)) {
+            return "SyntaxError: Unbalanced Parentheses."
+        }
+
+        if (this.#emptyParens.test(expr)) {
+            return "SyntaxError: Empty Parentheses.";
+        }
+
+        return false;
     }
 
     // HELPER FUNCTIONS & CLASS FIELDS
