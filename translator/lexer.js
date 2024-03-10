@@ -20,7 +20,7 @@ class Lexer {
     // match operator "inside" parenthsis e.g. "(+" or "^)"
     #opInParen = /(\([+*/^]|[+*/^-]\))/;  
     // match shorthand multiplication e.g. 1( or )1 or )(
-    #shorthandMultiply = /((\d+|\d*.\d+)\(|\)(\d+|\d*.\d+)|\)\()/; 
+    #shorthandMultiply = /((\d+|\d*\.\d+)\(|\)(\d+|\d*\.\d+)|\)\()/; 
     // match empty parentheses
     #emptyParens = /\(\)/;
     // determine unbalanced parentheses
@@ -73,7 +73,7 @@ class Lexer {
     #matchNumber(str) {
         // I did this before I decided to handle errors in the lexer. 
         const regexInt = /^\d+$/; 
-        const regexFloat = /^\d*.\d+$/;
+        const regexFloat = /^\d*\.\d+$/;
         return regexInt.test(str) || regexFloat.test(str);
     }
 
@@ -136,7 +136,7 @@ class Lexer {
 }
 
 
-// const test = new Lexer;
+const test = new Lexer;
 // const validString = "-----1.10001 + 0000.20 - --3 * (4/5^6)";
 // const consOp = "1 +/ 2";
 // const unP = "1 + (2*3";
