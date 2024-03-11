@@ -1,14 +1,21 @@
-const { Lexer } = require("./lexer.js");
+// const { Lexer } = require("./lexer.js");
 
 class Parser {
     constructor() {
         this.tokens = [];
         this.cursor = 0;
-        this.sentinel = "$";    // arbitrary value used to compare precedence
+        this.sentinel = "$";    // arbitrary value used to compare op precedence
         this.binops = ["+", "-", "*", "/", "^"];
+        this.lAssociatives = ["+", "-", "*", "/"];
     }
     
     // PRIVATE METHODS
+
+    #stream(_tokens) {
+        this.tokens = this.#mkTokenObj(_tokens);
+        console.log("Token Stream: ", this.tokens);
+        this.cursor = 0;
+    }
 
     #mkTokenObj(_tokens) {
         // Convert raw tokens into objects
@@ -41,7 +48,7 @@ class Parser {
                     tokenStream.push({type: "EOF", value: "EOF"});
                     break;
                 default:
-                    throw new Error("Error: Invalid Token")
+                    throw new Error("Error: Invalid Token");
             }
         }
         return tokenStream;
@@ -53,32 +60,32 @@ class Parser {
 
     #expect(_token) {
         if (this.#nextToken().type === _token) { this.#consume(); } 
-        else { throw new Error("Error: Unexpected Token"); }
+        else { throw new Error("Error: Encountered Unexpected Token"); }
     }
 
     #head(stack) { return stack[stack.length-1]; }
 
     #precedence(op) {
-        if (op === "^") { return 4; }
-        else if (op === "*" || op === "/") { return 3; }
-        else if (op === "u") { return 2; }
+        if (op === "u") { return 4; }
+        else if (op === "^") { return 3; }
+        else if (op === "*" || op === "/") { return 2; }
         else if (op === "+" || op === "-") { return 1; }
         else if (op === "$") { return 0; }
         else { throw new Error(`pushOperator() passed illegal value: ${op}`); }
     }
 
     #mkLeaf(_token) {
-        return { number: _token.value };
+        return { leaf: _token.value }
     }
 
     #mkNode(operator, operand1, operand2) {
         if (operand2 === undefined) {
-            return {operation: operator, left: operand1};
+            return { operation: operator, left: operand1 };
         }
-        return {operation: operator, left: operand1, right: operand2};
+        return { operation: operator, left: operand1, right: operand2 };
     }
 
-    // Implement Productions
+    // Implement Productions (Shunting Yard Algorithm)
     #E(operators, operands) {
         this.#P(operators, operands);
 
@@ -112,7 +119,7 @@ class Parser {
     }
     
     #popOperator(operators, operands) {
-        // Make node (by popping stacks) and push onto operands
+        // Make node (by popping op stacks) and push onto operands
         let left;
         let right;
         if (this.binops.includes(this.#head(operators))) {
@@ -127,19 +134,18 @@ class Parser {
     #pushOperator(op, operators, operands) {
         // call popOperator while the current operator token has lower 
         // precedence than the token at head(operator stack)
-        while (this.#precedence(this.#head(operators)) > this.#precedence(op)) {
+        while (this.#precedence(this.#head(operators)) > this.#precedence(op)
+        || (this.#precedence(this.#head(operators)) === this.#precedence(op)
+        && (this.lAssociatives.includes(this.#head(operators))))) {
             this.#popOperator(operators, operands);
         }
         operators.push(op);
     }
 
     // PUBLIC METHODS
-    stream(_tokens) {
-        this.tokens = this.#mkTokenObj(_tokens);
-        this.cursor = 0;
-    }
 
-    parse() {
+    parse(_tokens) {
+        this.#stream(_tokens);
         let operators = [];
         let operands = [];
         operators.push(this.sentinel);
@@ -149,15 +155,4 @@ class Parser {
     }
 }
 
-// PROGRAM:
-
-// get token stream:
-const test = new Lexer;
-const testString = "1 + 2^(3^4 - 5)/6.1 + (1-2^3^4/5)";
-const testTokens = test.tokenize(testString);
-console.log(testTokens);
-// test for syntax errors:
-const testParser = new Parser;
-testParser.stream(testTokens);
-console.log(JSON.stringify(testParser.parse(), null, "     "));
-// make AST:
+module.exports = { Parser };
