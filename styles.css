@@ -158,12 +158,15 @@ main {
 #functions {
   width: 33%;
   height: 100%;
-  margin: 0 10px 0 0;
+  /* margin: 0 10px 0 0; */
   text-align: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 5px;
+  overflow: auto;
+  scrollbar-width: thin;
+  gap: 7px;
 }
 
 #keypad {
@@ -175,17 +178,23 @@ main {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 5px;
+  overflow: auto;
+  scrollbar-width: thin;
+  gap: 7px;
 }
 
 #utilities {
   width: 22%;
   height: 100%;
-  margin: 0 0 0 10px;
+  /* margin: 0 0 0 10px; */
   text-align: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 5px;
+  overflow: auto;
+  scrollbar-width: thin;
+  gap: 7px;
 }
 
 /* 5.3 - Panel Buttons */
@@ -193,15 +202,18 @@ main {
 #functions button {
   height: 56px;
   width: 74px;
+  flex-grow: 1;
 }
 
 #keypad button {
   height: 56px;
   width: 74px;
+  flex-grow: 1;
 }
 #utilities button {
   height: 56px;
   width: 74px;
+  flex-grow: 1;
 }
 
 #keypad-panels button {
@@ -217,9 +229,9 @@ main {
   background-color: rgb(0, 240, 255);
   color: rgb(0,0,0);
   box-shadow: 0 0 1px rgb(0, 240, 255, 0.5),
+              0 0 3px rgb(0, 240, 255, 0.5),
               0 0 5px rgb(0, 240, 255, 0.5),
-              0 0 10px rgb(0, 240, 255, 0.5),
-              0 0 15px rgb(0, 240, 255, 0.5);
+              0 0 7px rgb(0, 240, 255, 0.5);
 }
 
 #keypad-panels .clickable:active {
