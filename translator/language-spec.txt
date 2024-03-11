@@ -1,30 +1,33 @@
-Specification of the grammar of the types of mathematical expression we wish to parse
-This entire project is based off of the implementation outlined in this website:
+Specification of the grammar of the types of mathematical expression we wish to
+parse. This entire project is based off of the implementation outlined in this
+website:
 
 https://www.engr.mun.ca/~theo/Misc/exp_parsing.htm#RDP
-
 
 
 Terminals = {nums, ".", "(", ")", "+", "-", "*", "/", "^"}
 
 Non-terminals = {
-	E -- expressions beginning with P, followed by 0 or more sequences of a binary operator (B) followed by another P,
-	P -- numbers, parenthesized Es, or negated P,
-	B -- binary operations ("^" is RIGHT-ASSOCIATIVE, and are listed in order of INCREASING precedence in its production rule),
+	E -- expressions beginning with P, followed by 0 or more sequences of a
+	     binary operator (B) followed by another P
+	P -- numbers, parenthesized Es, or negated P
+	B -- binary operations
 	U -- unary minus operator
 }
 
 Production Rules:
-	E --> P {B P}
+	E --> P {B P}        (start symbol)
     	P --> nums | (E) | U P
     	B --> + | - | * | / | ^
     	U --> -
-As in the website, curly braces denote 0 or more repititions of the enclosed symbols
 
+As in the website, curly braces denote 0 or more repititions of the enclosed 
+symbols. 
 
 Precedence and Associativity rules:
 	- Parentheses have precedence over all operators.
-	- ^ (exponentiation) has precedence over unary minus operator (-) and the binary operators /, *, -, and +.
-	- * and / have precedence over unary - and binary - and +.
-	- Unary - has precedence over binary - and +.
-	- ^ is right associative while all other binary operators are left associative.
+	- Unary minus has precedence over all binary operators
+	- ^ (exponentiation) has precedence over /, *, -, and +.
+	- * and / have precedence binary - and +.
+	- ^ is right associative while all other binary operators are left 
+	  associative.
