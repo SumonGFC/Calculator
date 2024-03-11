@@ -10,15 +10,15 @@
 
 class Lexer {
     constructor() {}
-    
+ 
     // ERROR REPORTING
 
     // match correct number representation (for reference)
-    //#regexNum = /(\d+|\d*.\d+)/;
+    //#regexNum = /(\d+|\d*\.\d+)/;
     // match invalid consecutive operators
     #consecutiveOps = /[+*/^-][+*/^][+*/^-]*/;
     // match operator "inside" parenthsis e.g. "(+" or "^)"
-    #opInParen = /(\([+*/^]|[+*/^-]\))/;  
+    #opInParen = /(\([+*/^]|[+*/^-]\))/; 
     // match shorthand multiplication e.g. 1( or )1 or )(
     #shorthandMultiply = /((\d+|\d*\.\d+)\(|\)(\d+|\d*\.\d+)|\)\()/; 
     // match empty parentheses
@@ -67,7 +67,7 @@ class Lexer {
     // HELPER FUNCTIONS & CLASS FIELDS
     #expr = "";
     #cursor = 0;
-    
+ 
     #at() { return this.#expr[this.#cursor]; }
 
     #matchNumber(str) {
@@ -134,21 +134,5 @@ class Lexer {
         return _tokens;
     }
 }
-
-
-const test = new Lexer;
-// const validString = "-----1.10001 + 0000.20 - --3 * (4/5^6)";
-// const consOp = "1 +/ 2";
-// const unP = "1 + (2*3";
-// const shortM = "1(2)";
-// const missingOP = "1+(*3)";
-// const invalidTok = "1+2#3";
-
-// console.log(test.tokenize(validString));
-// console.log(test.tokenize(consOp));
-// console.log(test.tokenize(unP));
-// console.log(test.tokenize(shortM));
-// console.log(test.tokenize(missingOP));
-// console.log(test.tokenize(invalidTok));
 
 module.exports = { Lexer };
