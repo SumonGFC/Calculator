@@ -316,6 +316,7 @@ class Evaluator {
                         this.errorMessage = "Error: It seems we could not " +
                         "evaluate exponentiation. Complex number arithmetic " +
                         "is unsupported at this time.";
+                        alert(this.errorMessage);
                         this.validExpr = false;
                         throw new Error("Couldn't evaluate exponentiation");
                     } else {
