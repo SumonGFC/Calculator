@@ -57,4 +57,5 @@ class Evaluator {
     }
 }
 
-module.exports = { Evaluator };
+// module.exports = { Evaluator };
+// export { Evaluator };

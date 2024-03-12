@@ -11,7 +11,12 @@
   <body>
     <main>
       <div id="history-container" class="main-container">
-        <div id="history-display" class="main-display"></div>
+        <div id="history-display" class="main-display">
+          <div>
+            <div>test</div>
+            <div>= ans</div>
+          </div>
+        </div>
       </div>
       <div id="expr-container" class="main-container">
         <div id="expr-display" class="main-display"></div>
@@ -32,12 +37,12 @@
           </div>
           <div id="keypad-panels">
             <div id="functions" class="btn-container">
-              <button class="clickable">&lpar;</button>
-              <button class="clickable">&rpar;</button>
+              <button class="clickable sym-input" value="(">&lpar;</button>
+              <button class="clickable sym-input" value=")">&rpar;</button>
               <button disabled>,</button>
-              <button class="clickable">x^y</button>
+              <button class="clickable sym-input" value="^">x^y</button>
               <button disabled>log(b,x)</button>
-              <button disabled>avg(...)</button>
+              <button disabled>avg(..)</button>
               <button disabled>sin(x)</button>
               <button disabled>cos(x)</button>
               <button disabled>tan(x)</button>
@@ -46,31 +51,31 @@
               <button disabled>&phi;</button>
             </div>
             <div id="keypad" class="btn-container">
-              <button class="clickable">7</button>
-              <button class="clickable">8</button>
-              <button class="clickable">9</button>
-              <button class="clickable">/</button>
-              <button class="clickable">4</button>
-              <button class="clickable">5</button>
-              <button class="clickable">6</button>
-              <button class="clickable">*</button>
-              <button class="clickable">1</button>
-              <button class="clickable">2</button>
-              <button class="clickable">3</button>
-              <button class="clickable">-</button>
-              <button class="clickable">.</button>
-              <button class="clickable">0</button>
-              <button class="clickable">ans</button>
-              <button class="clickable">+</button>
+              <button class="clickable sym-input" value="7">7</button>
+              <button class="clickable sym-input" value="8">8</button>
+              <button class="clickable sym-input" value="9">9</button>
+              <button class="clickable sym-input" value="/">&divide;</button>
+              <button class="clickable sym-input" value="4">4</button>
+              <button class="clickable sym-input" value="5">5</button>
+              <button class="clickable sym-input" value="6">6</button>
+              <button class="clickable sym-input" value="*">&times;</button>
+              <button class="clickable sym-input" value="1">1</button>
+              <button class="clickable sym-input" value="2">2</button>
+              <button class="clickable sym-input" value="3">3</button>
+              <button class="clickable sym-input" value="-">-</button>
+              <button class="clickable sym-input" value=".">.</button>
+              <button class="clickable sym-input" value="0">0</button>
+              <button id="ans" class="clickable sym-input" value="69">ans</button>
+              <button class="clickable sym-input" value="+">+</button>
             </div>
             <div id="utilities" class="btn-container">
               <button disabled>deg</button>
               <button disabled>rad</button>
-              <button class="clickable">&larr;</button>
-              <button class="clickable">&rarr;</button>
-              <button class="clickable">clear</button>
-              <button class="clickable">del</button>
-              <button class="clickable">=</button>
+              <button>&larr;</button>
+              <button>&rarr;</button>
+              <button id="clear" class="clickable">clear</button>
+              <button id="del" class="clickable">del</button>
+              <button id="equals" class="clickable">=</button>
             </div>
           </div>
         </div>
