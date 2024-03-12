@@ -359,7 +359,9 @@ function eval(expr) {
     } else {
         const AST = parser.parse(tokens);
         console.log("AST:", AST);
-        return evaluator.evaluate(AST[0]);
+        const result = evaluator.evaluate(AST[0]);
+        if (typeof result === "string" { return result; }
+        else {return result[0];}
     }
 }
 
