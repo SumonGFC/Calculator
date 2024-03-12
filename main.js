@@ -360,7 +360,7 @@ function eval(expr) {
         const AST = parser.parse(tokens);
         console.log("AST:", AST);
         const result = evaluator.evaluate(AST[0]);
-        if (typeof result === "string" { return result; }
+        if (typeof result === "string") { return result; }
         else {return result[0];}
     }
 }
