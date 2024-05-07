@@ -345,12 +345,13 @@ class Evaluator {
 const lexer = new Lexer;
 const parser = new Parser;
 const evaluator = new Evaluator;
-// const str = "45-3+2*6^-1";
 
-// const tokens = lexer.tokenize(str);
-// const ast = parser.parse(tokens);
-// const result = evaluator.evaluate(ast[0]);
-// console.log(result);
+//const str = "(45-3)+2*6^-1";
+//const tokens = lexer.tokenize(str);
+//const ast = parser.parse(tokens);
+//const result = evaluator.evaluate(ast[0]);
+//console.log(result);
+
 function eval(expr) {
     const tokens = lexer.tokenize(expr);
     if (typeof tokens === "string") {
@@ -362,7 +363,7 @@ function eval(expr) {
         console.log("AST:", AST);
         const result = evaluator.evaluate(AST[0]);
         if (typeof result === "string") { return result; }
-        else {return result[0];}
+        else {return result;}
     }
 }
 
